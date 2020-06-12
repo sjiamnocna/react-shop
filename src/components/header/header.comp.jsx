@@ -2,9 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
+import { ReactComponent as Logo } from '../../assets/crown.svg';
 import { auth } from '../../firebase/firebase.utils';
 import CartIcon from '../cart/icon/icon.comp';
-import { ReactComponent as Logo } from '../../assets/crown.svg'
+import CartDropdown from '../cart/dropdown/dropdown.comp';
 
 import './header.scss';
 
@@ -29,6 +30,7 @@ const Header = ({ currentUser }) => (
             <CartIcon/>
 
         </div>
+        <CartDropdown/>
     </div>
 );
 
