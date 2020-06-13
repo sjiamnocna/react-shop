@@ -27,4 +27,14 @@
       border-color: transparent;
     }
   }
+  .inverted {
+    background-color: white;
+    color: black;
+    border-color: black;
+
+    &:hover {
+      background-color: black;
+      color: white;
+    }
+  }
 }
