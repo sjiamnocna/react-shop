@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 import { selectCartItems, selectCartTotal } from '../../redux/cart/cart.selector'
+import StripeCheckoutButton from '../../components/stripe-button/stripe-button';
 
 import CheckoutItem from '../../components/checkout/item/checkout-item.comp';
 
@@ -36,6 +37,16 @@ const CheckoutPage = ({ cartItems, total }) => (
         <div className="total">
             <span>TOTAL: ${total}</span>
         </div>
+
+        <div className="test-warning">
+            <h3>Toto je testovací brána, neplaťte reálnou kartou!</h3>
+            Prosím použijte tuto testovací kartu:<br/>
+            <span className="card">4242 4242 4242 4242</span>
+            <span className="expiry">12/22</span>
+            <span className="cvv">123</span>
+        </div>
+
+        <StripeCheckoutButton price={total} />
 
     </div>
 );
