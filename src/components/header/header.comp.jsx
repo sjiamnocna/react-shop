@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import styled, { css } from 'styled-components';
 
 import { auth } from '../../firebase/firebase.utils';
 import CartIcon from '../cart/icon/icon.comp';
@@ -11,31 +12,60 @@ import { selectCartHidden } from '../../redux/cart/cart.selector'
 
 import { ReactComponent as Logo } from '../../assets/crown.svg';
 
-import './header.scss';
+const OptionContainerStyles = css`
+    padding: 10px 15px;
+    cursor: pointer;
+`,
+    HeaderContainer = styled.div`
+        height: 70px;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 25px;
+`,
+    LogoContainer = styled(Link)`
+        height: 100%;
+        width: 70px;
+        padding: 25px;
+`,
+    OptionsContainer = styled.div`
+        width: 50%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+    `,
+    OptionLink = styled(Link)`
+        ${OptionContainerStyles}
+    `,
+    OptionDiv = styled(Link)`
+        ${OptionContainerStyles}
+    `
+    ;
 
 const Header = ({ currentUser, hidden }) => (
-    <div className='header'>
-        <Link className='logo-container' to='/'>
+    <HeaderContainer>
+        <LogoContainer to='/'>
             <Logo className='logo' />
-        </Link>
-        <div className='options'>
-            <Link className='option' to='/shop'>
+        </LogoContainer>
+        <OptionsContainer>
+            <OptionLink to='/shop'>
                 SHOP
-            </Link>
-            <Link className='option' to='/shop'>
+            </OptionLink>
+            <OptionLink to='/shop'>
                 CONTACT
-            </Link>
+            </OptionLink>
             {
                 currentUser ?
-                    <div className='option' onClick={() => auth.signOut()}>SING OUT</div>
+                    <OptionDiv onClick={() => auth.signOut()}>SING OUT</OptionDiv>
                     :
-                    <Link className='option' to='/signin'>SING IN</Link>
+                    <OptionLink to='/signin'>SING IN</OptionLink>
             }
             <CartIcon />
 
-        </div>
+        </OptionsContainer>
         {hidden ? null : <CartDropdown />}
-    </div>
+    </HeaderContainer>
 );
 
 /**
