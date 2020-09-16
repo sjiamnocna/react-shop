@@ -10,7 +10,7 @@ import CheckoutPage from './pages/checkout/checkout.page'
 import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 import { setCurrentUser } from './redux/user/user.actions';
 
-import './App.css';
+import './App.scss';
 
 class App extends React.Component {
 

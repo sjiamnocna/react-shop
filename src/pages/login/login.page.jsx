@@ -1,15 +1,21 @@
 import React from 'react';
-
-import './login.scss';
+import styled from 'styled-components';
 
 import SignIn from '../../components/sing-in/signin.comp';
 import SignUp from '../../components/sing-up/signup.comp';
 
+const SignInAndSignUpContainer = styled.div`
+  width: 850px;
+  display: flex;
+  justify-content: space-between;
+  margin: 30px auto;
+`;
+
 const SingInAndSignUpPage = ()=>(
-    <div className='sign-in-and-sign-up'>
+    <SignInAndSignUpContainer>
         <SignIn />
         <SignUp />
-    </div>
+    </SignInAndSignUpContainer>
     
 );
 

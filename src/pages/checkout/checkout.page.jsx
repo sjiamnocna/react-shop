@@ -1,54 +1,94 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import styled from 'styled-components';
 
 import { selectCartItems, selectCartTotal } from '../../redux/cart/cart.selector'
 import StripeCheckoutButton from '../../components/stripe-button/stripe-button';
 
 import CheckoutItem from '../../components/checkout/item/checkout-item.comp';
 
-import './checkout.scss';
+const CheckoutPageContainer = styled.div`
+    width: 55%;
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 50px auto 0;
+    button {
+        margin-left: auto;
+        margin-top: 50px;
+    }
+`;
+const CheckoutHeaderContainer = styled.div`
+    width: 100%;
+    height: 40px;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid darkgrey;
+`;
+const HeaderBlockContainer = styled.div`
+    text-transform: capitalize;
+    width: 23%;
+    &:last-child {
+        width: 8%;
+    }
+`;
+const TotalContainer = styled.div`
+    margin-top: 30px;
+    margin-left: auto;
+    font-size: 36px;
+`;
+const WarningContainer = styled.div`
+    text-align: center;
+    margin-top: 40px;
+    font-size: 24px;
+    color: red;
+    span{
+        margin:10px;
+    }
+`;
 
 const CheckoutPage = ({ cartItems, total }) => (
-    <div className="checkout-page">
+    <CheckoutPageContainer>
 
-        <div className="checkout-header">
-            <div className="header-block">
+        <CheckoutHeaderContainer>
+            <HeaderBlockContainer>
                 <span>Product</span>
-            </div>
-            <div className="header-block">
+            </HeaderBlockContainer>
+            <HeaderBlockContainer>
                 <span>Description</span>
-            </div>
-            <div className="header-block">
+            </HeaderBlockContainer>
+            <HeaderBlockContainer>
                 <span>Quantity</span>
-            </div>
-            <div className="header-block">
+            </HeaderBlockContainer>
+            <HeaderBlockContainer>
                 <span>Price</span>
-            </div>
-            <div className="header-block">
+            </HeaderBlockContainer>
+            <HeaderBlockContainer>
                 <span>Remove</span>
-            </div>
-        </div>
+            </HeaderBlockContainer>
+        </CheckoutHeaderContainer>
 
         {
             cartItems.map(cartItem => <CheckoutItem key={cartItem.id} cartItem={cartItem} />)
         }
 
-        <div className="total">
+        <TotalContainer>
             <span>TOTAL: ${total}</span>
-        </div>
+        </TotalContainer>
 
-        <div className="test-warning">
+        <WarningContainer>
             <h3>Toto je testovací brána, neplaťte reálnou kartou!</h3>
-            Prosím použijte tuto testovací kartu:<br/>
+            Prosím použijte tuto testovací kartu:<br />
             <span className="card">4242 4242 4242 4242</span>
             <span className="expiry">12/22</span>
             <span className="cvv">123</span>
-        </div>
+        </WarningContainer>
 
         <StripeCheckoutButton price={total} />
 
-    </div>
+    </CheckoutPageContainer>
 );
 
 const mapStateToProps = createStructuredSelector({

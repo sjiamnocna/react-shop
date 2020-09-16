@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 import { auth } from '../../firebase/firebase.utils';
 import CartIcon from '../cart/icon/icon.comp';
@@ -12,11 +12,7 @@ import { selectCartHidden } from '../../redux/cart/cart.selector'
 
 import { ReactComponent as Logo } from '../../assets/crown.svg';
 
-const OptionContainerStyles = css`
-    padding: 10px 15px;
-    cursor: pointer;
-`,
-    HeaderContainer = styled.div`
+const HeaderContainer = styled.div`
         height: 70px;
         width: 100%;
         display: flex;
@@ -36,12 +32,9 @@ const OptionContainerStyles = css`
         justify-content: flex-end;
     `,
     OptionLink = styled(Link)`
-        ${OptionContainerStyles}
-    `,
-    OptionDiv = styled(Link)`
-        ${OptionContainerStyles}
-    `
-    ;
+        padding: 10px 15px;
+        cursor: pointer;
+    `;
 
 const Header = ({ currentUser, hidden }) => (
     <HeaderContainer>
@@ -57,7 +50,7 @@ const Header = ({ currentUser, hidden }) => (
             </OptionLink>
             {
                 currentUser ?
-                    <OptionDiv onClick={() => auth.signOut()}>SING OUT</OptionDiv>
+                    <OptionLink as="div" onClick={() => auth.signOut()}>SING OUT</OptionLink>
                     :
                     <OptionLink to='/signin'>SING IN</OptionLink>
             }
