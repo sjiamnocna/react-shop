@@ -27,7 +27,6 @@ export const CollectionItemsContainer = styled.div`
 
 const CollectionPage = ({ collection }) => {
     const { title, items } = collection;
-    console.log(items);
     return (
         <CollectionPageContainer>
             <CollectionTitle>{title}</CollectionTitle>
