@@ -13,6 +13,11 @@ const config = {
     measurementId: "G-MXM034KVGS"
 };
 
+firebase.initializeApp(config);
+
+export const auth = firebase.auth();
+export const firestore = firebase.firestore();
+
 export const createUserProfileDocument = async (userAuth, additionalData) => {
     if(!userAuth){
         return;
@@ -38,10 +43,40 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
     return userRef;
 };
 
-firebase.initializeApp(config);
+/**
+ * Util to add data to firestore
+ * @param string    collectionKey   Name of the collection to add to
+ * @param array     objectsToAdd    Array of objects to add
+ */
 
-export const auth = firebase.auth();
-export const firestore = firebase.firestore();
+export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => {
+    const collectionRef = firestore.collection(collectionKey);
+    console.log('addCollectionAndDocuments:', objectsToAdd);
+
+    const batch = firestore.batch();
+
+    for (let elem in objectsToAdd){
+        let current = objectsToAdd[elem];
+
+        if (collectionKey === 'collections'){
+            current = {
+                title: current.title,
+                items: current.items
+            };
+        }
+
+        const newDocRef = collectionRef.doc();
+        batch.set(newDocRef, current);
+
+        console.log(current, newDocRef);
+    }
+
+    return await batch.commit();
+};
+
+/**
+ * Setting auth provider
+ */
 
 const provider = new firebase.auth.GoogleAuthProvider();
 provider.setCustomParameters({ prompt:'select_account' });
