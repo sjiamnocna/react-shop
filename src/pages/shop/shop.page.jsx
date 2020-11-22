@@ -15,8 +15,6 @@ const CollectionsOverviewWithSpinner = WithSpinner(CollectionOverwiev),
     CollectionPageWithSpinner = WithSpinner(CollectionPage);
 
 const ShopPage = ({match, fetchCollectionsStartAsync, isLoaded}) => {
-    console.log(fetchCollectionsStartAsync);
-    
     useEffect(() => {
         fetchCollectionsStartAsync();
     });
